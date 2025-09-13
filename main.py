@@ -92,7 +92,7 @@ def main():
         'style': 'seaborn-v0_8-whitegrid',
         'palette': 'viridis',
         'figsize': (14, 8),
-        'title': 'Atributų informatyvumo palyginimas (Tarpusavio Informacija)',
+        'title': 'Atributų informatyvumo palyginimas',
         'x_label': 'Tiriamas Atributas',
         'y_label': 'Tarpusavio Informacijos Koeficientas',
         'legend_title': 'Diskretizavimo Metodas',
