@@ -1,25 +1,11 @@
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import seaborn as sns
+from sklearn.metrics import mutual_info_score
 from sklearn.preprocessing import KBinsDiscretizer
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import mutual_info_score
-from ucimlrepo import fetch_ucirepo
 
-def print_available_attributes(repo):
-    print("Available Attributes and their Indices:")
-    for i, col_name in enumerate(repo.data.features.columns):
-        print(f"{i}: {col_name}")
-
-def load_parkinsons_data(repo_id, col_names_to_select):
-    parkinsons_repo = fetch_ucirepo(id=repo_id)
-    X = parkinsons_repo.data.features
-    y = parkinsons_repo.data.targets
-    data = X[col_names_to_select].copy()
-    data['status'] = y
-
-    return data
 
 def calculate_unsupervised_mi(X, y, attribute, n_bins, random_state):
     discretizer = KBinsDiscretizer(
@@ -67,17 +53,13 @@ def generate_results_plot(results_df, plot_config):
 
 
 def main():
-    UCI_REPO_ID = 174
+    full_df = pd.read_csv("./parkinsons.data")
 
-    parkinsons_repo = fetch_ucirepo(id=UCI_REPO_ID)
-    print_available_attributes(parkinsons_repo)
+    ATTRIBUTES_TO_TEST = ['MDVP:Fo(Hz)', 'MDVP:Shimmer']
+    TARGET_COL = 'status'
 
-    COL_NAME_MDVP_FO = 'MDVP:Fo'
-    COL_NAME_HNR = 'HNR'
-    COL_NAME_STATUS = 'status'
-
-    ATTRIBUTES_TO_TEST = [COL_NAME_MDVP_FO, COL_NAME_HNR]
-    TARGET_COL = COL_NAME_STATUS
+    X = full_df[ATTRIBUTES_TO_TEST]
+    y = full_df[TARGET_COL]
 
     RANDOM_STATE = 42
     MAX_LEAF_NODES = 5
@@ -91,8 +73,8 @@ def main():
     PLOT_CONFIG = {
         'style': 'seaborn-v0_8-whitegrid',
         'palette': 'viridis',
-        'figsize': (14, 8),
-        'title': 'Atributų informatyvumo palyginimas',
+        'figsize': (12, 7),
+        'title': 'Atributų informatyvumo palyginimas (suderinta su Weka)',
         'x_label': 'Tiriamas Atributas',
         'y_label': 'Tarpusavio Informacijos Koeficientas',
         'legend_title': 'Diskretizavimo Metodas',
@@ -101,13 +83,9 @@ def main():
         'hue_col': RESULT_COL_METHOD
     }
 
-    data = load_parkinsons_data(UCI_REPO_ID, ATTRIBUTES_TO_TEST)
+    print("\nDuomenų pavyzdys (po teisingo pasirinkimo):")
+    print(full_df[['name'] + ATTRIBUTES_TO_TEST + [TARGET_COL]].head())
 
-    print("Duomenų pavyzdys:")
-    print(data.head())
-
-    X = data[ATTRIBUTES_TO_TEST]
-    y = data[TARGET_COL]
     results = []
 
     for attribute in ATTRIBUTES_TO_TEST:
