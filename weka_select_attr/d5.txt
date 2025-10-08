@@ -1,0 +1,28 @@
+=== Run information ===
+
+Evaluator:    weka.attributeSelection.InfoGainAttributeEval 
+Search:       weka.attributeSelection.Ranker -T -1.7976931348623157E308 -N -1
+Relation:     parkinsons.data-weka.filters.unsupervised.attribute.NumericToNominal-R18-weka.filters.unsupervised.attribute.Remove-V-R2,10,18-weka.filters.unsupervised.attribute.Discretize-Y-B5-M-1.0-Rfirst-last-precision6
+Instances:    195
+Attributes:   3
+              MDVP:Fo(Hz)
+              MDVP:Shimmer
+              status
+Evaluation mode:    evaluate on all training data
+
+
+
+=== Attribute Selection on all input data ===
+
+Search Method:
+	Attribute ranking.
+
+Attribute Evaluator (supervised, Class (nominal): 3 status):
+	Information Gain Ranking Filter
+
+Ranked attributes:
+ 0.237  1 MDVP:Fo(Hz)
+ 0.147  2 MDVP:Shimmer
+
+Selected attributes: 1,2 : 2
+
