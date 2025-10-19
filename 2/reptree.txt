@@ -1,0 +1,88 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.REPTree -M 2 -V 0.001 -N 3 -S 1 -L -1 -I 0.0
+Relation:     chronic_kidney_disease-weka.filters.unsupervised.attribute.Remove-V-R18,9,21,16,12,20,last-weka.filters.unsupervised.attribute.Discretize-Y-B10-M-1.0-Rfirst-last-precision6
+Instances:    400
+Attributes:   7
+              rbcc
+              ba
+              cad
+              pcv
+              sc
+              dm
+              class
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+
+REPTree
+============
+
+pcv = 'B1of10' : ckd (0/0) [1/0]
+pcv = 'B2of10' : ckd (4.81/0.04) [1.47/0.04]
+pcv = 'B3of10' : ckd (6.02/0.05) [2.59/0.05]
+pcv = 'B4of10' : ckd (20.46/0.15) [6/0.15]
+pcv = 'B5of10' : ckd (21.67/0.16) [22.12/0.16]
+pcv = 'B6of10' : ckd (49.35/0.37) [19.82/0.37]
+pcv = 'B7of10' : ckd (28.89/4.22) [17.82/4.22]
+pcv = 'B8of10'
+|   dm = yes : ckd (13.8/0) [3.67/0.19]
+|   dm = no
+|   |   rbcc = 'B1of10' : notckd (0/0) [0/0]
+|   |   rbcc = 'B2of10' : notckd (0/0) [0/0]
+|   |   rbcc = 'B3of10' : ckd (0/0) [0.28/0]
+|   |   rbcc = 'B4of10' : ckd (1.27/0.05) [0.15/0.03]
+|   |   rbcc = 'B5of10' : notckd (16.49/2.79) [8.97/1.62]
+|   |   rbcc = 'B6of10' : notckd (19.03/5.21) [9.09/1.87]
+|   |   rbcc = 'B7of10' : notckd (16.49/2.79) [2.97/1.62]
+|   |   rbcc = 'B8of10' : notckd (6.34/1.07) [2.04/0.62]
+|   |   rbcc = 'B9of10' : notckd (0/0) [0/0]
+|   |   rbcc = 'B10of10' : notckd (0/0) [0/0]
+pcv = 'B9of10'
+|   dm = yes : ckd (2.19/0) [1.94/0]
+|   dm = no : notckd (25.5/3.29) [13.77/2.56]
+pcv = 'B10of10'
+|   dm = yes : ckd (3.66/0) [1.25/0.11]
+|   dm = no
+|   |   rbcc = 'B1of10' : notckd (0/0) [0/0]
+|   |   rbcc = 'B2of10' : notckd (0/0) [0/0]
+|   |   rbcc = 'B3of10' : ckd (0/0) [0.13/0]
+|   |   rbcc = 'B4of10' : notckd (0/0) [0/0]
+|   |   rbcc = 'B5of10' : notckd (10.01/0.93) [3.97/0.92]
+|   |   rbcc = 'B6of10' : notckd (5.56/1.52) [6.43/0.51]
+|   |   rbcc = 'B7of10' : notckd (11.13/1.03) [6.07/1.03]
+|   |   rbcc = 'B8of10' : notckd (3.34/0.31) [2.45/0.31]
+|   |   rbcc = 'B9of10' : notckd (0/0) [0/0]
+|   |   rbcc = 'B10of10' : notckd (0/0) [0/0]
+
+Size of the tree : 37
+
+Time taken to build model: 0.01 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         373               93.25   %
+Incorrectly Classified Instances        27                6.75   %
+Kappa statistic                          0.8566
+Mean absolute error                      0.1831
+Root mean squared error                  0.276 
+Relative absolute error                 39.0488 %
+Root relative squared error             57.0177 %
+Total Number of Instances              400     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.940    0.080    0.951      0.940    0.946      0.857    0.948     0.969     ckd
+                 0.920    0.060    0.902      0.920    0.911      0.857    0.948     0.903     notckd
+Weighted Avg.    0.933    0.073    0.933      0.933    0.933      0.857    0.948     0.944     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 235  15 |   a = ckd
+  12 138 |   b = notckd
+
+

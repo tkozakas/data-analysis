@@ -1,0 +1,51 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.RandomForest -P 100 -I 100 -num-slots 1 -K 0 -M 1.0 -V 0.001 -S 1
+Relation:     chronic_kidney_disease-weka.filters.unsupervised.attribute.Remove-V-R18,9,21,16,12,20,last-weka.filters.unsupervised.attribute.Discretize-Y-B10-M-1.0-Rfirst-last-precision6
+Instances:    400
+Attributes:   7
+              rbcc
+              ba
+              cad
+              pcv
+              sc
+              dm
+              class
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+RandomForest
+
+Bagging with 100 iterations and base learner
+
+weka.classifiers.trees.RandomTree -K 0 -M 1.0 -V 0.001 -S 1 -do-not-check-capabilities
+
+Time taken to build model: 0.11 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         356               89      %
+Incorrectly Classified Instances        44               11      %
+Kappa statistic                          0.7726
+Mean absolute error                      0.1572
+Root mean squared error                  0.254 
+Relative absolute error                 33.5322 %
+Root relative squared error             52.4753 %
+Total Number of Instances              400     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.864    0.067    0.956      0.864    0.908      0.779    0.976     0.986     ckd
+                 0.933    0.136    0.805      0.933    0.864      0.779    0.976     0.951     notckd
+Weighted Avg.    0.890    0.093    0.899      0.890    0.891      0.779    0.976     0.973     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 216  34 |   a = ckd
+  10 140 |   b = notckd
+
+
