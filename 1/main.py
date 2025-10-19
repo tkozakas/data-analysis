@@ -53,7 +53,7 @@ def generate_results_plot(results_df, plot_config):
 
 
 def main():
-    full_df = pd.read_csv("./parkinsons.data")
+    full_df = pd.read_csv("parkinsons.data")
 
     ATTRIBUTES_TO_TEST = ['MDVP:Fo(Hz)', 'MDVP:Shimmer']
     TARGET_COL = 'status'

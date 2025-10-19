@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-WEKA_JAR_PATH = Path("./weka.jar")
-INPUT_DATA_FILE = Path("./parkinsons.data")
-OUTPUT_DIR = Path("./weka_pipeline_output")
+WEKA_JAR_PATH = Path("weka.jar")
+INPUT_DATA_FILE = Path("parkinsons.data")
+OUTPUT_DIR = Path("weka_pipeline_output")
 
 ATTRIBUTES_TO_ANALYZE = {"MDVP:Fo(Hz)": 2, "MDVP:Shimmer": 10}
 CLASS_ATTRIBUTE_INDEX = 18
