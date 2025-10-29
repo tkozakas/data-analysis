@@ -1,0 +1,87 @@
+@relation 'chronic_kidney_disease-weka.filters.unsupervised.attribute.Remove-V-R18,9,21,16,12,20,last-weka.filters.unsupervised.attribute.Discretize-Y-B10-M-1.0-Rfirst-last-precision6-weka.filters.unsupervised.instance.SubsetByExpression-Enot (ismissing(ATT1) or ismissing(ATT2) or ismissing(ATT3) or ismissing(ATT4) or ismissing(ATT5) or ismissing(ATT6))-weka.filters.unsupervised.instance.RemovePercentage-P70.0'
+
+@attribute rbcc {'\'B1of10\'','\'B2of10\'','\'B3of10\'','\'B4of10\'','\'B5of10\'','\'B6of10\'','\'B7of10\'','\'B8of10\'','\'B9of10\'','\'B10of10\''}
+@attribute ba {notpresent,present}
+@attribute cad {no,yes}
+@attribute pcv {'\'B1of10\'','\'B2of10\'','\'B3of10\'','\'B4of10\'','\'B5of10\'','\'B6of10\'','\'B7of10\'','\'B8of10\'','\'B9of10\'','\'B10of10\''}
+@attribute sc {'\'B1of10\'','\'B2of10\'','\'B3of10\'','\'B4of10\'','\'B5of10\'','\'B6of10\'','\'B7of10\'','\'B8of10\'','\'B9of10\'','\'B10of10\''}
+@attribute dm {yes,no}
+@attribute class {ckd,notckd}
+
+@data
+'\'B6of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B8of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B7of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B8of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B8of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B8of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B7of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B7of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B8of10\'',notpresent,no,'\'B7of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B7of10\'','\'B1of10\'',no,notckd
+'\'B8of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B8of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B8of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B8of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B8of10\'','\'B1of10\'',no,notckd
+'\'B5of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B6of10\'',notpresent,no,'\'B9of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
+'\'B7of10\'',notpresent,no,'\'B10of10\'','\'B1of10\'',no,notckd
