@@ -1,4 +1,4 @@
-,J48,RandomTree,REPTree
+,J48_C=0.25_M=2 (Original Default),RandomTree_K=0_M=1.0 (Original Default),REPTree_L=-1_M=2 (Original Default)
 Cross validation,90.5,90.25,89.75
 Test / training,87.5,90.8333,88.3333
 Training,91.0,91.5,90.5

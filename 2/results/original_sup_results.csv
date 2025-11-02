@@ -1,0 +1,8 @@
+,REPTree_L=-1_M=2 (Original Default),RandomTree_K=0_M=1.0 (Original Default),J48_C=0.25_M=2 (Original Default)
+Cross validation,93.25,92.75,85.25
+Test / training,95.0,89.1667,86.6667
+Training,94.0,96.0,85.25
+Percentage split,92.6471,92.6471,84.5588
+Vidurkis,93.7243,92.641,85.4314
+Tree size,37.0,303.0,13.0
+Parameters,-M 2 -V 0.001 -N 3 -S 1 -L -1 -I 0.0,-K 0 -M 1.0 -V 0.001 -S 1,-C 0.25 -M 2
