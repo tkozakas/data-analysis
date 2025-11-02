@@ -29,7 +29,7 @@ ALGORITHM_CONFIG = {
     },
     "REPTree": {
         "class": "weka.classifiers.trees.REPTree",
-        "params": "-M 2 -V 0.001 -N 3 -S 1"
+        "params": "-M 2 -V 0.001 -N 3 -S 1 -L -1 -I 0.0"
     }
 }
 
@@ -56,7 +56,6 @@ def run_weka_command(command_list: list) -> Optional[str]:
         return None
 
 
-# --- NEW FUNCTION ---
 def run_dot_command(dot_source: str, output_png_path: Path) -> bool:
     dot_cmd = ["dot", "-Tpng", "-o", str(output_png_path)]
     print(f"Executing: {' '.join(dot_cmd)} (piping .dot data)")
