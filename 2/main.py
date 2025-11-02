@@ -93,7 +93,6 @@ def build_experiment_grid() -> List[Dict[str, Any]]:
 
 
 def run_weka_command(command_list: list) -> Optional[str]:
-    # Convert all Path objects in command_list to strings
     cmd_list_str = [str(item) for item in command_list]
     print(f"Executing: {' '.join(cmd_list_str)}")
     try:
