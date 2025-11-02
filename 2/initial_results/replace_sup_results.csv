@@ -1,0 +1,8 @@
+,J48,RandomTree,REPTree
+Cross validation,90.5,90.25,89.75
+Test / training,87.5,90.8333,88.3333
+Training,91.0,91.5,90.5
+Percentage split,91.1765,88.9706,91.9118
+Vidurkis,90.0441,90.3885,90.1238
+Tree size,23.0,91.0,33.0
+Parameters,-C 0.25 -M 2,-K 0 -M 1.0 -V 0.001 -S 1,-M 2 -V 0.001 -N 3 -S 1

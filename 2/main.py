@@ -4,10 +4,13 @@ import pandas as pd
 from pathlib import Path
 from typing import Dict, Any, Optional
 import numpy as np
+import pandas.api.types  # Import pandas.api.types for pd.isna check
 
 # --- CONFIGURATION ---
 WEKA_JAR_PATH = Path("weka.jar")
 DATA_DIR = Path("discretization")
+RESULTS_DIR = Path("results")
+VISUALIZATION_DIR = Path("visualizations")  # <-- NEW: Directory for PNGs
 WEKA_MEMORY_MB = 2048
 
 DATASET_PREFIXES = [
@@ -55,6 +58,39 @@ def run_weka_command(command_list: list) -> Optional[str]:
         return None
 
 
+# --- NEW FUNCTION ---
+def run_dot_command(dot_source: str, output_png_path: Path) -> bool:
+    """Executes the 'dot' command to generate a PNG from .dot source string."""
+    dot_cmd = ["dot", "-Tpng", "-o", str(output_png_path)]
+    print(f"Executing: {' '.join(dot_cmd)} (piping .dot data)")
+
+    try:
+        subprocess.run(
+            dot_cmd,
+            input=dot_source,
+            text=True,
+            encoding='utf-8',
+            check=True,
+            capture_output=True  # Capture stdout/stderr for dot
+        )
+        print(f"Successfully generated visualization: {output_png_path}")
+        return True
+    except FileNotFoundError:
+        print("\nERROR: 'dot' command not found. Is Graphviz installed and in your PATH?")
+        return False
+    except subprocess.CalledProcessError as e:
+        print(f"--- DOT/Graphviz ERROR DETECTED ---")
+        print(f"--- STDERR from dot: ---")
+        print(e.stderr)
+        print(f"---------------------------------")
+        return False
+    except Exception as e:
+        print(f"An unexpected error occurred running dot: {e}")
+        return False
+
+
+# --- END NEW FUNCTION ---
+
 def parse_correctly_classified_percentage(weka_output: Optional[str]) -> Optional[float]:
     if not weka_output:
         return None
@@ -89,6 +125,11 @@ def main():
     if not WEKA_JAR_PATH.is_file():
         print(f"FATAL: weka.jar not found at '{WEKA_JAR_PATH}'. Exiting.")
         return
+
+    # --- MODIFIED: Create output directories ---
+    RESULTS_DIR.mkdir(exist_ok=True)
+    VISUALIZATION_DIR.mkdir(exist_ok=True)
+    # --- END MODIFICATION ---
 
     java_cmd_base = ["java", f"-Xmx{WEKA_MEMORY_MB}m", "-cp", str(WEKA_JAR_PATH)]
     print(f"--- Using Java memory setting: -Xmx{WEKA_MEMORY_MB}m ---")
@@ -136,6 +177,26 @@ def main():
 
             results["Parameters"] = config['params'] if config['params'] else " "
 
+            # --- NEW: Visualization logic ---
+            # Check if parse_tree_size found a valid number (not np.nan)
+            if not pd.api.types.is_scalar(results["Tree size"]) or not np.isnan(results["Tree size"]):
+                print(
+                    f"\n--- Generating visualization for {algo_name} on {prefix} (Tree size: {results['Tree size']}) ---")
+
+                # 1. Define Weka command to get .dot source (using -g)
+                cmd_graph = java_cmd_base + [classifier_class, "-t", str(main_file)] + classifier_params + ["-g"]
+                output_dot_source = run_weka_command(cmd_graph)
+
+                if output_dot_source:
+                    # 2. Define output PNG file path
+                    output_png_file = VISUALIZATION_DIR / f"{prefix}_{algo_name}_tree.png"
+
+                    # 3. Run the dot command helper
+                    run_dot_command(output_dot_source, output_png_file)
+            else:
+                print(f"\n--- Skipping visualization for {algo_name} (not a tree or tree size is 0) ---")
+            # --- END NEW: Visualization logic ---
+
             if any(v is None for v in results.values() if v != " "):
                 print(
                     f"\nFATAL: One or more Weka commands failed for algorithm '{algo_name}' on dataset '{prefix}'. Aborting this dataset.")
@@ -164,9 +225,7 @@ def main():
         print(f"\n\n--- Experiment Results Summary for '{prefix}' ---")
         print(results_df)
 
-        results_dir = Path("results")
-        results_dir.mkdir(exist_ok=True)
-        csv_filename = results_dir / f"{prefix}_results.csv"
+        csv_filename = RESULTS_DIR / f"{prefix}_results.csv"  # <-- MODIFIED: Use RESULTS_DIR
         results_df.to_csv(csv_filename)
         print(f"Results for '{prefix}' also saved to '{csv_filename}'")
 
