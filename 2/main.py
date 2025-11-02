@@ -8,7 +8,7 @@ import numpy as np
 # --- CONFIGURATION ---
 WEKA_JAR_PATH = Path("weka.jar")
 DATA_DIR = Path("discretization")
-WEKA_MEMORY_MB = 1024
+WEKA_MEMORY_MB = 2048
 
 DATASET_PREFIXES = [
     "original_sup",
@@ -56,18 +56,17 @@ def run_weka_command(command_list: list) -> Optional[str]:
 
 
 def parse_correctly_classified_percentage(weka_output: Optional[str]) -> Optional[float]:
-    """Parses Weka's summary and returns the percentage of correctly classified instances."""
     if not weka_output:
         return None
 
-    match = re.search(r"^\s*Correctly Classified Instances\s+.*?([\d.]+)\s*%", weka_output, re.MULTILINE)
-    if match:
+    matches = re.findall(r"^\s*Correctly Classified Instances\s+.*?([\d.]+)\s*%", weka_output, re.MULTILINE)
+
+    if matches:
         try:
-            return float(match.group(1))
+            return float(matches[-1])
         except (ValueError, IndexError):
             return None
 
-    print("--- PARSING WARNING: 'Correctly Classified Instances' line not found. ---")
     return None
 
 
@@ -112,14 +111,10 @@ def main():
             classifier_class = config['class']
             classifier_params = config['params'].split() if config['params'] else []
 
-            # --- EXPERIMENTS WITH CORRECTED, UNAMBIGUOUS COMMANDS ---
-
-            # 1. Cross-validation (on full dataset)
             cmd_cv = java_cmd_base + [classifier_class, "-t", str(main_file), "-x", "10"] + classifier_params
             output_cv = run_weka_command(cmd_cv)
             results["Cross validation"] = parse_correctly_classified_percentage(output_cv)
 
-            # 2. Supplied test set (train on _train, test on _test)
             cmd_test = java_cmd_base + [classifier_class, "-t", str(train_file), "-T",
                                         str(test_file)] + classifier_params
             output_test = run_weka_command(cmd_test)
@@ -135,7 +130,7 @@ def main():
             output_split = run_weka_command(cmd_split)
             results["Percentage split"] = parse_correctly_classified_percentage(output_split)
 
-            cmd_model_summary = java_cmd_base + [classifier_class, "-t", str(main_file)] + classifier_params
+            cmd_model_summary = java_cmd_base + [classifier_class, "-t", str(main_file), "-no-cv"] + classifier_params
             output_model_summary = run_weka_command(cmd_model_summary)
             results["Tree size"] = parse_tree_size(output_model_summary)
 
