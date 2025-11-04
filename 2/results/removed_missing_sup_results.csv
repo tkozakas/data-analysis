@@ -1,8 +1,8 @@
-,J48_C=0.25_M=2 (Original Default),REPTree_L=-1_M=2 (Original Default)
-Cross validation,96.0474,94.0711
-Test / training,100.0,100.0
-Training,97.6285,94.4664
-Percentage split,97.6744,95.3488
-Vidurkis,97.8376,95.9716
-Tree size,23.0,13.0
-Parameters,-C 0.25 -M 2,-M 2 -V 0.001 -N 3 -S 1 -L -1 -I 0.0
+,J48_C=0.25_M=2 (Original Default),RandomTree_K=0_M=1.0 (Original Default),REPTree_L=-1_M=2 (Original Default)
+Cross validation,96.0474,95.2569,94.0711
+Test / training,100.0,100.0,100.0
+Training,97.6285,98.8142,94.4664
+Percentage split,97.6744,95.3488,95.3488
+Vidurkis,97.8376,97.355,95.9716
+Tree size,23.0,65.0,13.0
+Parameters,-C 0.25 -M 2,-K 0 -M 1.0 -V 0.001 -S 1,-M 2 -V 0.001 -N 3 -S 1 -L -1 -I 0.0

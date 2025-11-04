@@ -14,7 +14,7 @@ DATA_DIR = SCRIPT_DIR / "discretization"
 RESULTS_DIR = SCRIPT_DIR / "results"
 VISUALIZATION_DIR = SCRIPT_DIR / "visualizations"
 WEKA_MEMORY_MB = 2048
-PATIENCE = 20
+PATIENCE = 50
 
 DATASET_PREFIXES = [
     "original_sup",
@@ -74,8 +74,8 @@ def build_experiment_grid() -> List[Dict[str, Any]]:
         })
 
     randomtree_class = "weka.classifiers.trees.RandomTree"
-    randomtree_params_k = [0, 5, 10]
-    randomtree_params_m = [1.0, 5, 10]
+    randomtree_params_k = [0, 2, 5, 8]
+    randomtree_params_m = [1.0, 10, 20, 30]
 
     for k, m in itertools.product(randomtree_params_k, randomtree_params_m):
         params_str = f"-K {k} -M {m} -V 0.001 -S 1"
