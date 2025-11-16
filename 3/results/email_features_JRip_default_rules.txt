@@ -1,0 +1,80 @@
+
+Options: -F 3 -N 2.0 -O 2 -S 1 
+
+=== Classifier model (full training set) ===
+
+JRIP rules:
+===========
+
+(from_domain <= 25) and (emoji_count >= 1) and (whitespace_ratio >= 0.1096) and (punctuation_ratio >= 0.1471) => label=1 (121.0/0.0)
+(punctuation_ratio >= 0.1858) and (from_domain <= 32) and (punctuation_ratio <= 0.2243) => label=1 (86.0/10.0)
+(longest_sentence_length <= 227) and (from_domain <= 90) and (from_domain >= 34) => label=1 (92.0/21.0)
+(from_domain <= 25) and (capital_letter_ratio >= 0.0615) and (whitespace_ratio >= 0.237) => label=1 (25.0/2.0)
+(subject_word_count <= 4) and (from_domain <= 89) and (question_mark_count <= 15) => label=1 (32.0/7.0)
+(emoji_count >= 6) and (letter_count >= 51835) and (body_word_count <= 11445) => label=1 (9.0/1.0)
+(punctuation_ratio <= 0.1531) and (link_count >= 37) and (body_word_count <= 8979) => label=1 (12.0/3.0)
+(punctuation_ratio >= 0.2249) and (subject_word_count >= 10) => label=1 (4.0/0.0)
+ => label=0 (319.0/13.0)
+
+Number of Rules : 9
+
+
+Time taken to build model: 0.13 seconds
+
+Time taken to test model on training data: 0 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         643               91.8571 %
+Incorrectly Classified Instances        57                8.1429 %
+Kappa statistic                          0.8371
+Mean absolute error                      0.137 
+Root mean squared error                  0.2618
+Relative absolute error                 27.4066 %
+Root relative squared error             52.3513 %
+Total Number of Instances              700     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.874    0.037    0.959      0.874    0.915      0.840    0.950     0.932     0
+                 0.963    0.126    0.885      0.963    0.922      0.840    0.950     0.938     1
+Weighted Avg.    0.919    0.081    0.922      0.919    0.918      0.840    0.950     0.935     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 306  44 |   a = 0
+  13 337 |   b = 1
+
+Time taken to perform cross-validation: 0.26 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         589               84.1429 %
+Incorrectly Classified Instances       111               15.8571 %
+Kappa statistic                          0.6829
+Mean absolute error                      0.2041
+Root mean squared error                  0.3631
+Relative absolute error                 40.8134 %
+Root relative squared error             72.6124 %
+Total Number of Instances              700     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.791    0.109    0.879      0.791    0.833      0.686    0.879     0.891     0
+                 0.891    0.209    0.810      0.891    0.849      0.686    0.879     0.837     1
+Weighted Avg.    0.841    0.159    0.845      0.841    0.841      0.686    0.879     0.864     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 277  73 |   a = 0
+  38 312 |   b = 1
+
