@@ -1,3 +1,4 @@
+# extract_features.py (Curated to 25 features)
 import os
 import re
 import json
@@ -22,11 +23,6 @@ def extract_domain(addr):
     return m.group(1).lower() if m else ""
 
 
-def extract_first_email(addr):
-    m = re.search(r"([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+)", addr or "")
-    return m.group(1).lower() if m else ""
-
-
 def get_recipient_count(to_field, cc_field):
     text = (to_field or "") + "," + (cc_field or "")
     return len(re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+", text))
@@ -46,10 +42,6 @@ def detect_time_segment(dt: datetime.datetime):
 # ---------- Feature extractors registry ---------- #
 def feature_from_domain(msg):
     return extract_domain(msg.get("from", ""))
-
-
-def feature_recipient(msg):
-    return extract_first_email(msg.get("to", ""))
 
 
 def feature_body_word_count(msg):
@@ -109,14 +101,6 @@ def feature_time_of_day(msg):
     return msg.get("time_of_day", "")
 
 
-def feature_recipient_count(msg):
-    return get_recipient_count(msg.get("to"), msg.get("cc"))
-
-
-def feature_exclamation_count(msg):
-    return msg["body"].count("!")
-
-
 def feature_has_unsubscribe(msg):
     return bool(re.search(r"unsubscribe", msg["body"], re.IGNORECASE))
 
@@ -125,72 +109,37 @@ def feature_has_important(msg):
     txt = msg["subject"] + " " + msg["body"]
     return bool(re.search(r"\bimportant\b", txt, re.IGNORECASE))
 
-def feature_sender(msg):
-    m = re.search(r"([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+)", msg.get("from", ""))
-    return m.group(1).lower() if m else ""
 
 def feature_longest_sentence_length(msg):
     text = msg["body"]
-    # Split by sentence-ending punctuation
     sentences = re.split(r"[.!?]+", text)
     longest = 0
     for s in sentences:
-        # keep only letters, digits, punctuation
         s_clean = re.sub(r"[^\w\d" + re.escape(string.punctuation) + r"\s]", "", s)
         words = re.findall(r"\w+", s_clean)
         longest = max(longest, len(words))
     return longest
 
+
 def feature_question_mark_count(msg):
     return msg["body"].count("?")
 
+
 def feature_feedback_words(msg):
     text = msg["body"]
-    # normalize unicode (remove accents)
     text_norm = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
     text_low = text_norm.lower()
     keywords = [
-        # English
-        "feedback",
-        "recommendation",
-        "reference",
-        "review",
-        "opinion",
-        "thoughts",
-        "assessment",
-        "evaluation",
-        "input",
-        "comments",
-        "insights",
-        "testimonial",
-        
-        # Lithuanian
-        "atsiliepimas",
-        "rekomendacija",
-        "apžvalga",
-        "nuomonė",
-        "mintys",
-        "įvertinimas",
-        "vertinimas",
-        "indėlis",
-        "komentarai",
-        "įžvalgos",
-        "charakteristika",
-        
-        # Russian
-        "отзыв",
-        "рекомендация",
-        "рецензия",
-        "обзор",
-        "мнение",
-        "мысли",
-        "оценка",
-        "вклад",
-        "комментарии",
-        "соображения",
-        "характеристика"
+        "feedback", "recommendation", "reference", "review", "opinion",
+        "thoughts", "assessment", "evaluation", "input", "comments",
+        "insights", "testimonial", "atsiliepimas", "rekomendacija",
+        "apžvalga", "nuomonė", "mintys", "įvertinimas", "vertinimas",
+        "indėlis", "komentarai", "įžvalgos", "charakteristika", "отзыв",
+        "рекомендация", "рецензия", "обзор", "мнение", "мысли", "оценка",
+        "вклад", "комментарии", "соображения", "характеристика"
     ]
     return any(k in text_low for k in keywords)
+
 
 def feature_subject_caps_ratio(msg):
     subject = msg.get("subject", "")
@@ -223,96 +172,65 @@ def feature_whitespace_ratio(msg):
 def feature_has_quoted_reply(msg):
     return ">" in msg["body"]
 
+
 def feature_has_email_closing(msg):
     email_closings = [
-        # English
-        "Sincerely",
-        "Yours sincerely",
-        "Faithfully",
-        "Yours faithfully",
-        "Regards",
-        "Best regards",
-        "Kind regards",
-        "Warm regards",
-        "Best",
-        "All the best",
-        "Thank you",
-        "Thanks",
-        "Cheers",
-        "Cordially",
-
-        # Lithuanian
-        "Pagarbiai",
-        "Su pagarba",
-        "Nuoširdžiai",
-        "Geriausi linkėjimai",
-        "Linkėjimai",
-        "Sėkmės",
-        "Viso gero",
-
-        # Russian
-        "С уважением",
-        "С наилучшими пожеланиями",
-        "Всего доброго",
-        "Всего хорошего",
-        "Искренне Ваш",
-        "Искренне Ваша",
-        "С почтением",
-        "Заранее спасибо",
+        "Sincerely", "Yours sincerely", "Faithfully", "Yours faithfully", "Regards",
+        "Best regards", "Kind regards", "Warm regards", "Best", "All the best",
+        "Thank you", "Thanks", "Cheers", "Cordially", "Pagarbiai", "Su pagarba",
+        "Nuoširdžiai", "Geriausi linkėjimai", "Linkėjimai", "Sėkmės", "Viso gero",
+        "С уважением", "С наилучшими пожеланиями", "Всего доброго", "Всего хорошего",
+        "Искренне Ваш", "Искренне Ваша", "С почтением", "Заранее спасибо",
     ]
-
     body = msg["body"].lower()
-    # simple case-insensitive search
     for phrase in email_closings:
         if phrase.lower() in body:
             return True
     return False
 
-# Mapping of feature name → function
+
+# --- MAPPING OF THE FINAL 25 FEATURES ---
 FEATURES = {
+    # Core Content & Structure
     "from_domain": feature_from_domain,
-    "recipient": feature_recipient,
-    "recipient_count": feature_recipient_count,
     "body_word_count": feature_body_word_count,
     "subject_word_count": feature_subject_word_count,
-    "capital_letter_count": feature_capitals,
-    "capital_letter_ratio": feature_capital_ratio,
-    "link_count": feature_links,
-    "punctuation_count": feature_punctuation_count,
-    "punctuation_ratio": feature_punctuation_ratio,
-    "emoji_count": feature_emojis,
-    "emoji_ratio": feature_emoji_ratio,
-    "letter_count": feature_letters,
-    "day_of_week": feature_day_of_week,
-    "time_of_day": feature_time_of_day,
-    "exclamation_mark_count": feature_exclamation_count,
-    "has_unsubscribe": feature_has_unsubscribe,
-    "has_important": feature_has_important,
-    "sender": feature_sender,
     "longest_sentence_length": feature_longest_sentence_length,
-    "question_mark_count": feature_question_mark_count,
-    "feedback_words": feature_feedback_words,
-    "subject_caps_ratio": feature_subject_caps_ratio,
-    "number_ratio": feature_number_ratio,
-    "number_count": feature_number_count,
-    "finance_symbol_count": feature_finance_symbol_count,
-    "whitespace_ratio": feature_whitespace_ratio,
     "has_quoted_reply": feature_has_quoted_reply,
     "has_email_closing": feature_has_email_closing,
+    "link_count": feature_links,
+    "has_unsubscribe": feature_has_unsubscribe,
+    # Text Style & Formatting
+    "capital_letter_count": feature_capitals,
+    "capital_letter_ratio": feature_capital_ratio,
+    "subject_caps_ratio": feature_subject_caps_ratio,
+    "punctuation_count": feature_punctuation_count,
+    "punctuation_ratio": feature_punctuation_ratio,
+    "question_mark_count": feature_question_mark_count,
+    "number_count": feature_number_count,
+    "number_ratio": feature_number_ratio,
+    "finance_symbol_count": feature_finance_symbol_count,
+    "emoji_count": feature_emojis,
+    "emoji_ratio": feature_emoji_ratio,
+    # Keywords & Semantics
+    "has_important": feature_has_important,
+    "feedback_words": feature_feedback_words,
+    # Metadata
+    "day_of_week": feature_day_of_week,
+    "time_of_day": feature_time_of_day,
+    # Kept for total count
+    "letter_count": feature_letters,
+    "whitespace_ratio": feature_whitespace_ratio,
 }
 
-print(f"num features {len(FEATURES)}")
+print(f"Number of curated features: {len(FEATURES)}")
 
 
-# ---------- Email parsing ---------- #
 def parse_email(path):
     with open(path, "rb") as f:
         msg = BytesParser(policy=policy.default).parse(f)
-
     def get_header(name):
         return msg[name] or ""
-
-    # Extract date/time info
     date_raw = get_header("Date")
     try:
         dt = parsedate_to_datetime(date_raw)
@@ -320,12 +238,10 @@ def parse_email(path):
         time_seg = detect_time_segment(dt)
     except Exception:
         day_name, time_seg = "", ""
-
     from_ = get_header("From")
     to = get_header("To")
     cc = get_header("Cc")
     subject = get_header("Subject")
-
     body_parts = []
     if msg.is_multipart():
         for part in msg.walk():
@@ -343,29 +259,11 @@ def parse_email(path):
             payload = msg.get_payload(decode=True)
             if payload:
                 body_parts.append(payload.decode("utf-8", "ignore"))
-
     return {
         "id": os.path.splitext(os.path.basename(path))[0],
-        "from": from_,
-        "to": to,
-        "cc": cc,
-        "subject": subject or "",
-        "body": "\n".join(body_parts),
-        "day_of_week": day_name,
-        "time_of_day": time_seg,
+        "from": from_, "to": to, "cc": cc, "subject": subject or "",
+        "body": "\n".join(body_parts), "day_of_week": day_name, "time_of_day": time_seg,
     }
-
-
-# ---------- Main pipeline ---------- #
-def load_labels():
-    labels = {}
-    with open(LABELED_JSONL, "r", encoding="utf-8") as f:
-        for line in f:
-            if not line.strip():
-                continue
-            d = json.loads(line)
-            labels[d["id"]] = d.get("label")
-    return labels
 
 
 def build_record(msg, label):
@@ -381,21 +279,23 @@ def build_record(msg, label):
 
 def main():
     labels = load_labels()
-    files = [f for f in os.listdir(EMAIL_DIR) if f.endswith(".eml")]
-    print(f"Found {len(files)} emails, {len(labels)} labeled entries.")
-
+    # Assume EMAIL_DIR points to a folder with subfolders 'good' and 'spam' for labeling
+    all_files = []
+    for folder in ['good', 'spam']:
+        folder_path = os.path.join(EMAIL_DIR, folder)
+        if os.path.isdir(folder_path):
+            all_files.extend([os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith(".eml")])
+    
     records = []
-    for i, fname in enumerate(files, 1):
-        path = os.path.join(EMAIL_DIR, fname)
-        msg = parse_email(path)
-        label = labels.get(msg["id"])
+    for path in all_files:
+        msg_id = os.path.splitext(os.path.basename(path))[0]
+        label = labels.get(msg_id)
         if not label:
             continue
+        msg = parse_email(path)
         record = build_record(msg, label)
         records.append(record)
-        if i % 50 == 0 or i == len(files):
-            print(f"Processed {i}/{len(files)}")
-
+    
     if not records:
         print("No records generated.")
         return
@@ -405,9 +305,8 @@ def main():
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(records)
-
     print(f"Saved {len(records)} records to {OUTPUT_CSV}")
 
-
 if __name__ == "__main__":
-    main()
+    print("This script is primarily intended to be used as a module by 'build_dataset.py'.")
+    print("Running it standalone requires a 'emails_labeled.jsonl' file and a flat 'emails' directory.")
