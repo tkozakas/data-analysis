@@ -1,0 +1,47 @@
+
+Options: -S 0 -R 1.0E-8 -num-decimal-places 4 
+
+=== Classifier model (full training set) ===
+
+
+Linear Regression Model
+
+ViolentCrimesPerPop =
+
+     -0.0342 * agePct65up +
+      0.2374 * pctWPubAsst +
+      0.3091 * NumUnderPov +
+     -0.0496 * PctEmplManu +
+     -0.566  * PctTeen2Par +
+      0.1197 * PctRecentImmig +
+      0.0778 * MedRent +
+      0.0706 * PctSameCity85 +
+      0.1728 * PctPolicBlack +
+     -0.0312 * PctUsePubTrans +
+      0.3806
+
+Time taken to build model: 0.11 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correlation coefficient                  0.7367
+Mean absolute error                      0.1127
+Root mean squared error                  0.1575
+Relative absolute error                 63.2044 %
+Root relative squared error             67.6184 %
+Total Number of Instances             1994     
+
+Time taken to perform cross-validation: 0.05 seconds
+
+
+=== Cross-validation ===
+
+Correlation coefficient                  0.7318
+Mean absolute error                      0.1136
+Root mean squared error                  0.1587
+Relative absolute error                 63.6775 %
+Root relative squared error             68.135  %
+Total Number of Instances             1994     
+

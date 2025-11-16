@@ -1,16 +1,15 @@
 # extract_features.py (Curated to 25 features)
+import csv
+import datetime
 import os
 import re
-import json
-import csv
 import string
-import datetime
-import emoji
-import email
+import unicodedata
 from email import policy
 from email.parser import BytesParser
 from email.utils import parsedate_to_datetime
-import unicodedata
+
+import emoji
 
 EMAIL_DIR = "emails"
 LABELED_JSONL = "emails_labeled.jsonl"
@@ -99,6 +98,7 @@ def feature_day_of_week(msg):
 
 def feature_time_of_day(msg):
     return msg.get("time_of_day", "")
+
 
 def feature_has_important(msg):
     txt = msg["subject"] + " " + msg["body"]
@@ -223,8 +223,10 @@ print(f"Number of curated features: {len(FEATURES)}")
 def parse_email(path):
     with open(path, "rb") as f:
         msg = BytesParser(policy=policy.default).parse(f)
+
     def get_header(name):
         return msg[name] or ""
+
     date_raw = get_header("Date")
     try:
         dt = parsedate_to_datetime(date_raw)
@@ -279,7 +281,7 @@ def main():
         folder_path = os.path.join(EMAIL_DIR, folder)
         if os.path.isdir(folder_path):
             all_files.extend([os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith(".eml")])
-    
+
     records = []
     for path in all_files:
         msg_id = os.path.splitext(os.path.basename(path))[0]
@@ -289,7 +291,7 @@ def main():
         msg = parse_email(path)
         record = build_record(msg, label)
         records.append(record)
-    
+
     if not records:
         print("No records generated.")
         return
@@ -301,7 +303,7 @@ def main():
         writer.writerows(records)
     print(f"Saved {len(records)} records to {OUTPUT_CSV}")
 
+
 if __name__ == "__main__":
     print("This script is primarily intended to be used as a module by 'build_dataset.py'.")
     print("Running it standalone requires a 'emails_labeled.jsonl' file and a flat 'emails' directory.")
-

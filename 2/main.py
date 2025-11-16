@@ -1,11 +1,12 @@
-import subprocess
-import re
-import pandas as pd
-from pathlib import Path
-from typing import Dict, Any, Optional, List
-import numpy as np
 import itertools
 import random
+import re
+import subprocess
+from pathlib import Path
+from typing import Dict, Any, Optional, List
+
+import numpy as np
+import pandas as pd
 
 SCRIPT_DIR = Path(__file__).parent.resolve()
 

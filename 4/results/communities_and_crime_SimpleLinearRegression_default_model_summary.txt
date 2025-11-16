@@ -1,0 +1,35 @@
+
+=== Classifier model (full training set) ===
+
+Linear regression on PctTeen2Par
+
+-0.8 * PctTeen2Par + 0.71
+
+Predicting 0 if attribute value is missing.
+
+
+Time taken to build model: 0.07 seconds
+
+Time taken to test model on training data: 0 seconds
+
+=== Error on training data ===
+
+Correlation coefficient                  0.6616
+Mean absolute error                      0.1277
+Root mean squared error                  0.1747
+Relative absolute error                 71.5988 %
+Root relative squared error             74.9873 %
+Total Number of Instances             1994     
+
+Time taken to perform cross-validation: 0.02 seconds
+
+
+=== Cross-validation ===
+
+Correlation coefficient                  0.6604
+Mean absolute error                      0.1279
+Root mean squared error                  0.1749
+Relative absolute error                 71.6929 %
+Root relative squared error             75.0706 %
+Total Number of Instances             1994     
+

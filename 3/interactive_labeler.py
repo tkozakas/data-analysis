@@ -1,8 +1,8 @@
 import os
-import shutil
-import sys
-import subprocess
 import random
+import shutil
+import subprocess
+import sys
 import time
 
 EMAIL_DIR = "emails"
@@ -13,6 +13,7 @@ EMAIL_CLIENT_PROCESS_NAME = "Mail"
 
 GOOD_DIR = os.path.join(EMAIL_DIR, "good")
 SPAM_DIR = os.path.join(EMAIL_DIR, "spam")
+
 
 def open_file(filepath):
     try:
@@ -27,6 +28,7 @@ def open_file(filepath):
         print(f"Details: {e}")
         return False
     return True
+
 
 def close_email_client():
     if not CLOSE_WINDOW_ENABLED or not EMAIL_CLIENT_PROCESS_NAME:
@@ -56,7 +58,8 @@ def close_email_client():
 def main():
     print("--- Interactive Email Labeler (with Auto-Close) ---")
     if CLOSE_WINDOW_ENABLED:
-        print(f"!!! Auto-close is ENABLED for '{EMAIL_CLIENT_PROCESS_NAME}'. This will close the entire application. !!!")
+        print(
+            f"!!! Auto-close is ENABLED for '{EMAIL_CLIENT_PROCESS_NAME}'. This will close the entire application. !!!")
     else:
         print("--- Auto-close is DISABLED. Edit the script to enable it. ---")
     print("  'g' -> Good | 's' -> Spam | 'k' -> Skip | 'q' -> Quit")
@@ -79,7 +82,7 @@ def main():
     good_count = len(os.listdir(GOOD_DIR))
     spam_count = len(os.listdir(SPAM_DIR))
     labeled_count = good_count + spam_count
-    
+
     initial_labeled_count = labeled_count
     print(f"You have already labeled {labeled_count} emails.")
     print(f"Goal is to reach {TARGET_COUNT} total labeled emails.")
@@ -89,10 +92,10 @@ def main():
         print(f"\nTarget of {TARGET_COUNT} labeled emails reached.")
 
         file_path = os.path.join(EMAIL_DIR, filename)
-        
+
         if not open_file(file_path):
             break
-        
+
         time.sleep(1)
 
         while True:

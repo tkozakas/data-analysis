@@ -1,8 +1,9 @@
-import os
-import base64
 import asyncio
+import base64
+import os
 import random
 from concurrent.futures import ThreadPoolExecutor
+
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -15,6 +16,7 @@ MAX_PARALLEL = 10
 MESSAGES_PER_BATCH = 20
 TOTAL_TO_FETCH = 3000
 MAX_RETRIES = 3
+
 
 # Load credentials once
 def load_creds():
@@ -29,8 +31,10 @@ def load_creds():
         creds.refresh(Request())
     return creds
 
+
 def build_service(creds):
     return build("gmail", "v1", credentials=creds, cache_discovery=False)
+
 
 def fetch_and_save_blocking(creds, msg_id):
     # Build a dedicated service per call
@@ -47,6 +51,7 @@ def fetch_and_save_blocking(creds, msg_id):
         f.write(raw_msg)
     return msg_id
 
+
 async def fetch_message(creds, msg_id, sem, executor):
     for attempt in range(MAX_RETRIES):
         try:
@@ -59,13 +64,14 @@ async def fetch_message(creds, msg_id, sem, executor):
             return
         except HttpError as e:
             wait = (2 ** attempt) + random.random()
-            print(f"Retry {attempt+1}/{MAX_RETRIES} for {msg_id}: {e}, wait {wait:.1f}s")
+            print(f"Retry {attempt + 1}/{MAX_RETRIES} for {msg_id}: {e}, wait {wait:.1f}s")
             await asyncio.sleep(wait)
         except Exception as e:
             wait = (2 ** attempt) + random.random()
-            print(f"Error {attempt+1}/{MAX_RETRIES} for {msg_id}: {e}, wait {wait:.1f}s")
+            print(f"Error {attempt + 1}/{MAX_RETRIES} for {msg_id}: {e}, wait {wait:.1f}s")
             await asyncio.sleep(wait)
     print(f"FAILED after {MAX_RETRIES} retries: {msg_id}")
+
 
 async def fetch_all_messages(creds):
     # get one lightweight listing service only
@@ -95,9 +101,11 @@ async def fetch_all_messages(creds):
             await asyncio.gather(*tasks)
             await asyncio.sleep(0.2)
 
+
 def main():
     creds = load_creds()
     asyncio.run(fetch_all_messages(creds))
+
 
 if __name__ == "__main__":
     main()

@@ -1,8 +1,9 @@
 import os
-import shutil
 import random
-from email.parser import BytesParser
+import shutil
 from email import policy
+from email.parser import BytesParser
+
 from tqdm import tqdm
 
 # --- Configuration ---
@@ -41,6 +42,8 @@ TRANSACTIONAL_KEYWORDS = [
     "jūsų ataskaita paruošta", "eksportavimas baigtas", "atsisiuntimas paruoštas",
     "vizitas patvirtintas", "jūsų susitikimas suplanuotas"
 ]
+
+
 # ---------------------
 
 def get_email_content(filepath):
@@ -53,12 +56,14 @@ def get_email_content(filepath):
         if msg.is_multipart():
             for part in msg.walk():
                 if part.get_content_type() in ("text/plain", "text/html"):
-                    try: body_parts.append(part.get_content())
+                    try:
+                        body_parts.append(part.get_content())
                     except Exception:
                         payload = part.get_payload(decode=True)
                         if payload: body_parts.append(payload.decode("utf-8", "ignore"))
         else:
-            try: body_parts.append(msg.get_content())
+            try:
+                body_parts.append(msg.get_content())
             except Exception:
                 payload = msg.get_payload(decode=True)
                 if payload: body_parts.append(payload.decode("utf-8", "ignore"))
@@ -66,6 +71,7 @@ def get_email_content(filepath):
     except Exception as e:
         print(f"Warning: Could not read {filepath}. Error: {e}")
         return ""
+
 
 def balance_directory(dir_path, target_count):
     """Randomly deletes files from a directory to match the target count."""
@@ -79,24 +85,25 @@ def balance_directory(dir_path, target_count):
     print(f"Found {current_count} files.")
 
     num_to_delete = current_count - target_count
-    
+
     if num_to_delete > 0:
         print(f"Need to delete {num_to_delete} random files to reach target of {target_count}.")
-        
+
         # Get a random sample of files to delete
         files_to_delete = random.sample(files, num_to_delete)
-        
+
         for filename in tqdm(files_to_delete, desc="Deleting excess files"):
             filepath_to_delete = os.path.join(dir_path, filename)
             os.remove(filepath_to_delete)
-        
+
         print("Deletion complete.")
     else:
         print("File count is at or below the target. No files deleted.")
 
+
 def main():
     print("--- Automatic Email Sorter & Balancer ---")
-    
+
     transactional_dir = os.path.join(EMAIL_DIR, "transactional")
     other_dir = os.path.join(EMAIL_DIR, "other")
 
@@ -105,7 +112,7 @@ def main():
     if os.path.exists(other_dir): shutil.rmtree(other_dir)
     os.makedirs(transactional_dir, exist_ok=True)
     os.makedirs(other_dir, exist_ok=True)
-    
+
     files_to_sort = [
         f for f in os.listdir(EMAIL_DIR)
         if f.endswith(".eml") and os.path.isfile(os.path.join(EMAIL_DIR, f))
@@ -121,19 +128,19 @@ def main():
         filepath = os.path.join(EMAIL_DIR, filename)
         content = get_email_content(filepath)
         is_transactional = any(keyword in content for keyword in TRANSACTIONAL_KEYWORDS)
-        
+
         if is_transactional:
             shutil.copy(filepath, os.path.join(transactional_dir, filename))
         else:
             shutil.copy(filepath, os.path.join(other_dir, filename))
 
     print("\n--- Sorting Phase Complete ---")
-    
+
     # --- PHASE 2: BALANCING (DELETING FROM COPIES) ---
     print(f"\n--- Phase 2: Balancing folders to target count of {TARGET_COUNT} ---")
     balance_directory(transactional_dir, TARGET_COUNT)
     balance_directory(other_dir, TARGET_COUNT)
-    
+
     # --- FINAL VERIFICATION ---
     print("\n--- Final Verification ---")
     final_t_count = len([f for f in os.listdir(transactional_dir) if f.endswith(".eml")])
@@ -141,6 +148,7 @@ def main():
     print(f"Final count in '{transactional_dir}': {final_t_count} files.")
     print(f"Final count in '{other_dir}': {final_o_count} files.")
     print("\nProcess complete. You can now run build_dataset.py.")
+
 
 if __name__ == "__main__":
     main()

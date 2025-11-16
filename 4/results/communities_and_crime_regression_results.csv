@@ -1,0 +1,10 @@
+Algorithm,Cross validation (RMSE),Cross validation (Corr Coeff),Percentage split (RMSE),Percentage split (Corr Coeff),Parameters,Vidurkis (RMSE),Vidurkis (Corr Coeff)
+LinearRegression (Default),0.1575,0.7367,0.1575,0.7367,-S 0 -R 1.0E-8 -num-decimal-places 4,0.1575,0.7367
+LinearRegression_R=1e-10_Dec=4,0.1575,0.7367,0.1575,0.7367,-S 0 -R 1e-10 -num-decimal-places 4,0.1575,0.7367
+LinearRegression_R=1e-08_Dec=4,0.1575,0.7367,0.1575,0.7367,-S 0 -R 1e-08 -num-decimal-places 4,0.1575,0.7367
+LinearRegression_R=1e-06_Dec=4,0.1575,0.7367,0.1575,0.7367,-S 0 -R 1e-06 -num-decimal-places 4,0.1575,0.7367
+LinearRegression_R=0.0001_Dec=4,0.1575,0.7367,0.1575,0.7367,-S 0 -R 0.0001 -num-decimal-places 4,0.1575,0.7367
+LinearRegression_R=0.01_Dec=4,0.1575,0.7367,0.1575,0.7367,-S 0 -R 0.01 -num-decimal-places 4,0.1575,0.7367
+LinearRegression_R=0.1_Dec=4,0.1575,0.7367,0.1575,0.7367,-S 0 -R 0.1 -num-decimal-places 4,0.1575,0.7367
+LinearRegression_R=1.0_Dec=4,0.1575,0.7367,0.1575,0.7367,-S 0 -R 1.0 -num-decimal-places 4,0.1575,0.7367
+SimpleLinearRegression (Default),0.1747,0.6616,0.1747,0.6616, ,0.1747,0.6616
