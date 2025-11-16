@@ -86,9 +86,7 @@ def main():
     print("-" * 30)
 
     for filename in files_to_label:
-        if labeled_count >= TARGET_COUNT:
-            print(f"\nTarget of {TARGET_COUNT} labeled emails reached. Well done!")
-            break
+        print(f"\nTarget of {TARGET_COUNT} labeled emails reached.")
 
         file_path = os.path.join(EMAIL_DIR, filename)
         

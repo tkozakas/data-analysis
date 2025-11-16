@@ -100,11 +100,6 @@ def feature_day_of_week(msg):
 def feature_time_of_day(msg):
     return msg.get("time_of_day", "")
 
-
-def feature_has_unsubscribe(msg):
-    return bool(re.search(r"unsubscribe", msg["body"], re.IGNORECASE))
-
-
 def feature_has_important(msg):
     txt = msg["subject"] + " " + msg["body"]
     return bool(re.search(r"\bimportant\b", txt, re.IGNORECASE))
@@ -199,7 +194,6 @@ FEATURES = {
     "has_quoted_reply": feature_has_quoted_reply,
     "has_email_closing": feature_has_email_closing,
     "link_count": feature_links,
-    "has_unsubscribe": feature_has_unsubscribe,
     # Text Style & Formatting
     "capital_letter_count": feature_capitals,
     "capital_letter_ratio": feature_capital_ratio,
@@ -310,3 +304,4 @@ def main():
 if __name__ == "__main__":
     print("This script is primarily intended to be used as a module by 'build_dataset.py'.")
     print("Running it standalone requires a 'emails_labeled.jsonl' file and a flat 'emails' directory.")
+

@@ -115,11 +115,6 @@ def feature_recipient_count(msg):
 def feature_exclamation_count(msg):
     return msg["body"].count("!")
 
-
-def feature_has_unsubscribe(msg):
-    return bool(re.search(r"unsubscribe", msg["body"], re.IGNORECASE))
-
-
 def feature_has_important(msg):
     txt = msg["subject"] + " " + msg["body"]
     return bool(re.search(r"\bimportant\b", txt, re.IGNORECASE))
@@ -143,7 +138,6 @@ FEATURES = {
     "day_of_week": feature_day_of_week,
     "time_of_day": feature_time_of_day,
     "exclamation_mark_count": feature_exclamation_count,
-    "has_unsubscribe": feature_has_unsubscribe,
     "has_important": feature_has_important,
 }
 

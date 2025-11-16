@@ -13,7 +13,7 @@ SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 EMAIL_DIR = "emails"
 MAX_PARALLEL = 10
 MESSAGES_PER_BATCH = 20
-TOTAL_TO_FETCH = 1000
+TOTAL_TO_FETCH = 3000
 MAX_RETRIES = 3
 
 # Load credentials once
