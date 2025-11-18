@@ -1,80 +1,83 @@
 
-Options: -F 3 -N 4.0 -O 4 -S 1 
+Options: -F 3 -N 1.0 -O 1 -S 1 
 
 === Classifier model (full training set) ===
 
 JRIP rules:
 ===========
 
-(from_domain <= 25) and (emoji_count >= 1) and (whitespace_ratio >= 0.1096) and (punctuation_ratio >= 0.1471) => label=1 (121.0/0.0)
-(punctuation_ratio >= 0.1858) and (from_domain <= 32) => label=1 (100.0/18.0)
-(longest_sentence_length <= 227) and (from_domain <= 90) and (from_domain >= 34) => label=1 (92.0/21.0)
-(punctuation_ratio <= 0.1531) and (from_domain <= 89) and (subject_word_count <= 6) and (longest_sentence_length <= 318) and (whitespace_ratio >= 0.1647) => label=1 (24.0/2.0)
-(from_domain <= 25) and (capital_letter_ratio >= 0.0584) and (whitespace_ratio >= 0.237) => label=1 (25.0/4.0)
-(whitespace_ratio <= 0.0835) and (from_domain <= 86) => label=1 (16.0/6.0)
-(number_ratio <= 0.0946) and (link_count >= 33) => label=1 (10.0/2.0)
-(question_mark_count <= 9) and (from_domain <= 89) and (from_domain >= 33) and (whitespace_ratio <= 1.0622) => label=1 (10.0/1.0)
- => label=0 (302.0/6.0)
+(punctuation_ratio >= 0.1831) and (number_ratio <= 0.1393) and (from_domain_char_count >= 15) and (capital_letter_ratio >= 0.0441) => label=1 (85.0/3.0)
+(punctuation_count <= 15022) and (whitespace_ratio >= 0.2843) and (whitespace_ratio <= 0.4342) and (longest_sentence_length >= 199) => label=1 (62.0/6.0)
+(longest_sentence_length <= 319) and (punctuation_ratio >= 0.1781) and (question_mark_count <= 12) and (emoji_count >= 1) => label=1 (42.0/5.0)
+(longest_sentence_length <= 311) and (whitespace_ratio >= 0.3903) and (capital_letter_count <= 1877) and (subject_word_count <= 5) and (subject_caps_ratio <= 0.0667) => label=1 (28.0/1.0)
+(longest_sentence_length <= 286) and (letter_count >= 7526) and (whitespace_ratio >= 0.3153) and (capital_letter_count <= 1829) => label=1 (27.0/1.0)
+(longest_sentence_length <= 286) and (punctuation_count >= 5420) and (from_domain_char_count >= 15) => label=1 (28.0/4.0)
+(question_mark_count <= 12) and (number_ratio >= 0.1066) and (whitespace_ratio >= 0.0725) and (body_word_count >= 369) => label=1 (31.0/4.0)
+(capital_letter_ratio >= 0.1199) and (whitespace_ratio >= 0.4112) and (subject_word_count <= 8) => label=1 (15.0/4.0)
+(capital_letter_count <= 1500) and (subject_word_count <= 3) and (whitespace_ratio <= 0.1752) => label=1 (9.0/1.0)
+(whitespace_ratio <= 0.215) and (body_word_count >= 6573) and (whitespace_ratio >= 0.0924) and (emoji_count >= 1) => label=1 (11.0/1.0)
+(body_word_count <= 3589) and (link_count >= 21) and (question_mark_count >= 5) => label=1 (13.0/3.0)
+ => label=0 (349.0/32.0)
 
-Number of Rules : 9
+Number of Rules : 12
 
 
-Time taken to build model: 0.16 seconds
+Time taken to build model: 0.14 seconds
 
 Time taken to test model on training data: 0 seconds
 
 === Error on training data ===
 
-Correctly Classified Instances         640               91.4286 %
-Incorrectly Classified Instances        60                8.5714 %
-Kappa statistic                          0.8286
-Mean absolute error                      0.138 
-Root mean squared error                  0.2627
-Relative absolute error                 27.5947 %
-Root relative squared error             52.5306 %
+Correctly Classified Instances         635               90.7143 %
+Incorrectly Classified Instances        65                9.2857 %
+Kappa statistic                          0.8143
+Mean absolute error                      0.1648
+Root mean squared error                  0.287 
+Relative absolute error                 32.9502 %
+Root relative squared error             57.4023 %
 Total Number of Instances              700     
 
 
 === Detailed Accuracy By Class ===
 
                  TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
-                 0.846    0.017    0.980      0.846    0.908      0.836    0.951     0.943     0
-                 0.983    0.154    0.864      0.983    0.920      0.836    0.951     0.935     1
-Weighted Avg.    0.914    0.086    0.922      0.914    0.914      0.836    0.951     0.939     
+                 0.906    0.091    0.908      0.906    0.907      0.814    0.923     0.890     0
+                 0.909    0.094    0.906      0.909    0.907      0.814    0.923     0.905     1
+Weighted Avg.    0.907    0.093    0.907      0.907    0.907      0.814    0.923     0.898     
 
 
 === Confusion Matrix ===
 
    a   b   <-- classified as
- 296  54 |   a = 0
-   6 344 |   b = 1
+ 317  33 |   a = 0
+  32 318 |   b = 1
 
-Time taken to perform cross-validation: 0.36 seconds
+Time taken to perform cross-validation: 0.19 seconds
 
 
 === Stratified cross-validation ===
 
-Correctly Classified Instances         594               84.8571 %
-Incorrectly Classified Instances       106               15.1429 %
-Kappa statistic                          0.6971
-Mean absolute error                      0.1997
-Root mean squared error                  0.3612
-Relative absolute error                 39.9452 %
-Root relative squared error             72.2383 %
+Correctly Classified Instances         545               77.8571 %
+Incorrectly Classified Instances       155               22.1429 %
+Kappa statistic                          0.5571
+Mean absolute error                      0.2953
+Root mean squared error                  0.4164
+Relative absolute error                 59.0621 %
+Root relative squared error             83.284  %
 Total Number of Instances              700     
 
 
 === Detailed Accuracy By Class ===
 
                  TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
-                 0.791    0.094    0.894      0.791    0.839      0.702    0.877     0.881     0
-                 0.906    0.209    0.813      0.906    0.857      0.702    0.877     0.839     1
-Weighted Avg.    0.849    0.151    0.853      0.849    0.848      0.702    0.877     0.860     
+                 0.771    0.214    0.783      0.771    0.777      0.557    0.815     0.801     0
+                 0.786    0.229    0.775      0.786    0.780      0.557    0.815     0.790     1
+Weighted Avg.    0.779    0.221    0.779      0.779    0.779      0.557    0.815     0.796     
 
 
 === Confusion Matrix ===
 
    a   b   <-- classified as
- 277  73 |   a = 0
-  33 317 |   b = 1
+ 270  80 |   a = 0
+  75 275 |   b = 1
 

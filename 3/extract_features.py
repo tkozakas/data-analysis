@@ -39,8 +39,8 @@ def detect_time_segment(dt: datetime.datetime):
 
 
 # ---------- Feature extractors registry ---------- #
-def feature_from_domain(msg):
-    return extract_domain(msg.get("from", ""))
+def feature_from_domain_char_count(msg):
+    return len(extract_domain(msg.get("from", "")))
 
 
 def feature_body_word_count(msg):
@@ -187,7 +187,7 @@ def feature_has_email_closing(msg):
 # --- MAPPING OF THE FINAL 25 FEATURES ---
 FEATURES = {
     # Core Content & Structure
-    "from_domain": feature_from_domain,
+    "from_domain_char_count": feature_from_domain_char_count,
     "body_word_count": feature_body_word_count,
     "subject_word_count": feature_subject_word_count,
     "longest_sentence_length": feature_longest_sentence_length,
