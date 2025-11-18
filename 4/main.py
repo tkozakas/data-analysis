@@ -16,7 +16,7 @@ VISUALIZATION_DIR = SCRIPT_DIR / "visualizations"
 WEKA_MEMORY_MB = 2048
 DATASET_PREFIXES = ["communities_and_crime"]
 
-ATTRIBUTES_TO_SELECT = "15,23,33,40,52,62,71,79,91,100,112,121,last"
+ATTRIBUTES_TO_SELECT = "15,23,33,40,52,62,71,79,91,100,112,121,128"
 
 DEFAULT_ALGORITHM_CONFIG = {
     "SimpleLinearRegression": {"class": "weka.classifiers.functions.SimpleLinearRegression", "params": ""},

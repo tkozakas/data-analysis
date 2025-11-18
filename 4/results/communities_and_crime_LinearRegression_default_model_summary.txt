@@ -33,7 +33,7 @@ Relative absolute error                 63.2044 %
 Root relative squared error             67.6184 %
 Total Number of Instances             1994     
 
-Time taken to perform cross-validation: 0.05 seconds
+Time taken to perform cross-validation: 0.06 seconds
 
 
 === Cross-validation ===
